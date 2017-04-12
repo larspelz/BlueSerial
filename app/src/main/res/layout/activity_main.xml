@@ -26,51 +26,37 @@
             android:layout_weight="5"
             android:text="Clear Input" />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <CheckBox
-                android:id="@+id/chkScroll"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="0dp"
-                android:checked="true"
-                android:text="Scroll" />
-
-            <CheckBox
-                android:id="@+id/chkReceiveText"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="Read" />
-        </LinearLayout>
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/viewScroll"
+    <GridLayout
+        android:id="@+id/viewLeds"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1" >
+        android:columnCount="2"
+        android:rowCount="2"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/button1"
+            android:layout_gravity="left|top"
+            android:text="Button" />
 
-        <TextView
-            android:id="@+id/txtReceive"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:background="#eeeeee"
-            android:typeface="monospace"
-            android:hint="Message shows up here ..."
-            android:scrollbars="vertical" />
-    </ScrollView>
+        <Button
+            android:id="@+id/button2"
+            android:layout_gravity="left|top"
+            android:text="Button" />
 
-    <EditText
-        android:id="@+id/editSend"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter command ..."
-        android:inputType="text" />
+        <Button
+            android:id="@+id/button3"
+            android:layout_gravity="left|top"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_gravity="left|top"
+            android:text="Button" />
+
+    </GridLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -78,20 +64,20 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/btnClear"
+            android:id="@+id/btnDiceLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:padding="5dp"
-            android:text="Clear" />
+            android:text="@string/dice_layout" />
 
         <Button
-            android:id="@+id/btnSend"
+            android:id="@+id/btnPentLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:padding="5dp"
-            android:text="Send" />
+            android:text="@string/pent_layout" />
     </LinearLayout>
 
 </LinearLayout> <!-- </RelativeLayout> -->

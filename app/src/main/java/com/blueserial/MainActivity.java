@@ -43,14 +43,10 @@ public class MainActivity extends Activity {
 
 	// All controls here
 	private TextView mTxtReceive;
-	private EditText mEditSend;
 	private Button mBtnDisconnect;
-	private Button mBtnSend;
-	private Button mBtnClear;
+	private Button mBtnPent;
+	private Button mBtnDice;
 	private Button mBtnClearInput;
-	private ScrollView scrollView;
-	private CheckBox chkScroll;
-	private CheckBox chkReceiveText;
 
 	private boolean mIsBluetoothConnected = false;
 
@@ -73,13 +69,9 @@ public class MainActivity extends Activity {
 		Log.d(TAG, "Ready");
 
 		mBtnDisconnect = (Button) findViewById(R.id.btnDisconnect);
-		mBtnSend = (Button) findViewById(R.id.btnSend);
-		mBtnClear = (Button) findViewById(R.id.btnClear);
+		mBtnPent = (Button) findViewById(R.id.btnPentLayout);
+		mBtnDice = (Button) findViewById(R.id.btnDiceLayout);
 		mTxtReceive = (TextView) findViewById(R.id.txtReceive);
-		mEditSend = (EditText) findViewById(R.id.editSend);
-		scrollView = (ScrollView) findViewById(R.id.viewScroll);
-		chkScroll = (CheckBox) findViewById(R.id.chkScroll);
-		chkReceiveText = (CheckBox) findViewById(R.id.chkReceiveText);
 		mBtnClearInput = (Button) findViewById(R.id.btnClearInput);
 
 		mTxtReceive.setMovementMethod(new ScrollingMovementMethod());
@@ -93,12 +85,12 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		mBtnSend.setOnClickListener(new OnClickListener() {
+		mBtnPent.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				try {
-					mBTSocket.getOutputStream().write(mEditSend.getText().toString().getBytes());
+					mBTSocket.getOutputStream().write(("bla").getBytes());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -106,11 +98,11 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		mBtnClear.setOnClickListener(new OnClickListener() {
+		mBtnDice.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				mEditSend.setText("");
+
 			}
 		});
 		
@@ -154,37 +146,8 @@ public class MainActivity extends Activity {
 						 */
 						for (i = 0; i < buffer.length && buffer[i] != 0; i++) {
 						}
+						// INPUT STRING goes here
 						final String strInput = new String(buffer, 0, i);
-
-						/*
-						 * If checked then receive text, better design would probably be to stop thread if unchecked and free resources, but this is a quick fix
-						 */
-
-						if (chkReceiveText.isChecked()) {
-							mTxtReceive.post(new Runnable() {
-								@Override
-								public void run() {
-									mTxtReceive.append(strInput);
-									//Uncomment below for testing
-									//mTxtReceive.append("\n");
-									//mTxtReceive.append("Chars: " + strInput.length() + " Lines: " + mTxtReceive.getLineCount() + "\n");
-									
-									int txtLength = mTxtReceive.getEditableText().length();  
-									if(txtLength > mMaxChars){
-										mTxtReceive.getEditableText().delete(0, txtLength - mMaxChars);
-									}
-
-									if (chkScroll.isChecked()) { // Scroll only if this is checked
-										scrollView.post(new Runnable() { // Snippet from http://stackoverflow.com/a/4612082/1287554
-													@Override
-													public void run() {
-														scrollView.fullScroll(View.FOCUS_DOWN);
-													}
-												});
-									}
-								}
-							});
-						}
 
 					}
 					Thread.sleep(500);
@@ -216,8 +179,12 @@ public class MainActivity extends Activity {
 
 			if (mReadThread != null) {
 				mReadThread.stop();
-				while (mReadThread.isRunning())
-					; // Wait until it stops
+				while (mReadThread.isRunning()) {
+					try {
+						Thread.sleep(30);
+					} catch (Exception e) {
+					} // Wait until it stops
+				}
 				mReadThread = null;
 
 			}
