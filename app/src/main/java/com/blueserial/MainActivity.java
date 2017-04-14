@@ -42,17 +42,27 @@ public class MainActivity extends Activity {
 	private boolean mIsUserInitiatedDisconnect = false;
 
 	// All controls here
-	private TextView mTxtReceive;
 	private Button mBtnDisconnect;
 	private Button mBtnPent;
 	private Button mBtnDice;
 	private Button mBtnClearInput;
+	private Button[] mBtnToggle=new Button[6];
+    private String[] onoff={"A","B","C","D","E","F"};
 
 	private boolean mIsBluetoothConnected = false;
 
 	private BluetoothDevice mDevice;
 
 	private ProgressDialog progressDialog;
+
+    private void sendStr(String data) {
+        try {
+            mBTSocket.getOutputStream().write(data.getBytes());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +81,25 @@ public class MainActivity extends Activity {
 		mBtnDisconnect = (Button) findViewById(R.id.btnDisconnect);
 		mBtnPent = (Button) findViewById(R.id.btnPentLayout);
 		mBtnDice = (Button) findViewById(R.id.btnDiceLayout);
-		mTxtReceive = (TextView) findViewById(R.id.txtReceive);
 		mBtnClearInput = (Button) findViewById(R.id.btnClearInput);
 
-		mTxtReceive.setMovementMethod(new ScrollingMovementMethod());
+        int[] ids={R.id.button1,
+                R.id.button2,
+                R.id.button3,
+                R.id.button4,
+                R.id.button5,
+                R.id.button6};
+
+        for (int i=0;i<ids.length;i++) {
+            mBtnToggle[i]=(Button) findViewById(ids[i]);
+            mBtnToggle[i].setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+                    sendStr("a");
+                }
+            });
+        }
 
 		mBtnDisconnect.setOnClickListener(new OnClickListener() {
 
@@ -89,12 +114,7 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				try {
-					mBTSocket.getOutputStream().write(("bla").getBytes());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				sendStr("A");
 			}
 		});
 
@@ -103,14 +123,6 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 
-			}
-		});
-		
-		mBtnClearInput.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				mTxtReceive.setText("");
 			}
 		});
 
