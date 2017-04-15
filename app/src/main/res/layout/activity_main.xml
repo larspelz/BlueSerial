@@ -17,14 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            android:text="Disconnect" />
-
-        <Button
-            android:id="@+id/btnClearInput"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:text="Clear Input" />
+            android:text="@string/bt_disconnect" />
 
     </LinearLayout>
 
@@ -35,58 +28,71 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
-            <Button
+            <com.blueserial.LedView
                 android:id="@+id/button1"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_width="wrap_content"
-                android:text="Button" />
-
-            <Button
+                android:src="@drawable/led_grey"/>
+            <View
+                android:layout_width="30dp"
+                android:layout_height="0dp"
+                />
+            <com.blueserial.LedView
                 android:id="@+id/button2"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_width="wrap_content"
-                android:text="Button" />
+                android:src="@drawable/led_grey"/>
         </LinearLayout>
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-        <Button
-            android:id="@+id/button3"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="Button" />
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="Button" />
-        </LinearLayout>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
-            <Button
+            <com.blueserial.LedView
+                android:id="@+id/button3"
+                android:layout_height="70dp"
+                android:layout_width="wrap_content"
+                android:src="@drawable/led_grey"/>
+            <View
+                android:layout_width="30dp"
+                android:layout_height="0dp"
+                />
+            <com.blueserial.LedView
+                android:id="@+id/button4"
+                android:layout_height="70dp"
+                android:layout_width="wrap_content"
+                android:src="@drawable/led_grey"/>
+        </LinearLayout>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <com.blueserial.LedView
                 android:id="@+id/button5"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_width="wrap_content"
-                android:text="Button" />
-
-            <Button
+                android:src="@drawable/led_grey"/>
+            <View
+                android:layout_width="30dp"
+                android:layout_height="0dp"
+                />
+            <com.blueserial.LedView
                 android:id="@+id/button6"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_width="wrap_content"
-                android:text="Button" />
+                android:src="@drawable/led_grey"/>
         </LinearLayout>
     </LinearLayout>
 

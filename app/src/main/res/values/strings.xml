@@ -18,5 +18,13 @@
     <string name="pref_text_buffer_summary">Change the receive text buffer size</string>
     <string name="dice_layout">Dice 6 Layout</string>
     <string name="pent_layout">Pentagon Layout</string>
+    <string name="bt_disconnect">Disconnect</string>
+    <string name="pair_dev_list">Paired devices appear below</string>
+    <string name="pair_dev_search">Search for paired devices</string>
+    <string name="home_connect">Connect</string>
+    <string name="condlg_title">Hold on</string>
+    <string name="condlg_con">Connecting&#8230;</string>
+    <string name="home_connected">Connected to device</string>
+    <string name="home_confail">Could not connect to device. Is it a Serial device?</string>
 
 </resources>

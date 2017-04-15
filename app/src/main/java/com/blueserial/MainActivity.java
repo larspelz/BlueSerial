@@ -20,21 +20,15 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	private static final String TAG = "BlueTest5-MainActivity";
-	private int mMaxChars = 50000;//Default
+	private static final String TAG = "OLEDCtrl-MainActivity";
 	private UUID mDeviceUUID;
 	private BluetoothSocket mBTSocket;
 	private ReadInput mReadThread = null;
@@ -45,9 +39,9 @@ public class MainActivity extends Activity {
 	private Button mBtnDisconnect;
 	private Button mBtnPent;
 	private Button mBtnDice;
-	private Button mBtnClearInput;
-	private Button[] mBtnToggle=new Button[6];
+	private LedView[] mBtnToggle=new LedView[6];
     private String[] onoff={"A","B","C","D","E","F"};
+    private int[] btnstates=new int[6];
 
 	private boolean mIsBluetoothConnected = false;
 
@@ -74,14 +68,12 @@ public class MainActivity extends Activity {
 		Bundle b = intent.getExtras();
 		mDevice = b.getParcelable(Homescreen.DEVICE_EXTRA);
 		mDeviceUUID = UUID.fromString(b.getString(Homescreen.DEVICE_UUID));
-		mMaxChars = b.getInt(Homescreen.BUFFER_SIZE);
 
 		Log.d(TAG, "Ready");
 
 		mBtnDisconnect = (Button) findViewById(R.id.btnDisconnect);
 		mBtnPent = (Button) findViewById(R.id.btnPentLayout);
 		mBtnDice = (Button) findViewById(R.id.btnDiceLayout);
-		mBtnClearInput = (Button) findViewById(R.id.btnClearInput);
 
         int[] ids={R.id.button1,
                 R.id.button2,
@@ -91,12 +83,20 @@ public class MainActivity extends Activity {
                 R.id.button6};
 
         for (int i=0;i<ids.length;i++) {
-            mBtnToggle[i]=(Button) findViewById(ids[i]);
+            mBtnToggle[i]=(LedView) findViewById(ids[i]);
+            mBtnToggle[i].setCode(onoff[i]);
             mBtnToggle[i].setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View arg0) {
-                    sendStr("a");
+                    if (!(arg0 instanceof LedView)) return;
+                    LedView lv=(LedView) arg0;
+                    lv.toggle();
+                    if (lv.getState()==0) {
+                        sendStr(lv.getCode().toLowerCase());
+                    } else {
+                        sendStr(lv.getCode().toUpperCase());
+                    }
                 }
             });
         }
@@ -114,7 +114,7 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				sendStr("A");
+				// TODO: Implement layout change
 			}
 		});
 
@@ -165,11 +165,7 @@ public class MainActivity extends Activity {
 					Thread.sleep(500);
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 
 		}
@@ -261,7 +257,8 @@ public class MainActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
-			progressDialog = ProgressDialog.show(MainActivity.this, "Hold on", "Connecting");// http://stackoverflow.com/a/11130220/1287554
+            // http://stackoverflow.com/a/11130220/1287554
+			progressDialog = ProgressDialog.show(MainActivity.this, getString(R.string.condlg_title), getString(R.string.condlg_con));
 		}
 
 		@Override
@@ -286,10 +283,10 @@ public class MainActivity extends Activity {
 			super.onPostExecute(result);
 
 			if (!mConnectSuccessful) {
-				Toast.makeText(getApplicationContext(), "Could not connect to device. Is it a Serial device? Also check if the UUID is correct in the settings", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), getString(R.string.home_confail), Toast.LENGTH_LONG).show();
 				finish();
 			} else {
-				msg("Connected to device");
+				msg(getString(R.string.home_connected));
 				mIsBluetoothConnected = true;
 				mReadThread = new ReadInput(); // Kick off input reader
 			}

@@ -2,4 +2,14 @@
 <resources>
     <string name="app_name">OLED Steuerung</string>
     <string name="menu_settings">Einstellungen</string>
+    <string name="dice_layout">Würfel 6 Layout</string>
+    <string name="pent_layout">Pentagon Layout</string>
+    <string name="bt_disconnect">Trennen</string>
+    <string name="pair_dev_list">Liste der gekoppelten BT-Geräte</string>
+    <string name="pair_dev_search">BT-Geräte anzeigen</string>
+    <string name="home_connect">Verbinden</string>
+    <string name="condlg_title">Bitte warten!</string>
+    <string name="condlg_con">Verbinde&#8230;</string>
+    <string name="home_connected">Verbindung erfolgreich</string>
+    <string name="home_confail">Konnte nicht mit dem Gerät verbinden. Ist es wirklich ein SPP-Gerät?</string>
 </resources>
