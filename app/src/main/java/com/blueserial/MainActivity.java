@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+import android.content.pm.ActivityInfo;
 
 public class MainActivity extends Activity {
 
@@ -40,8 +41,7 @@ public class MainActivity extends Activity {
 	private Button mBtnPent;
 	private Button mBtnDice;
 	private LedView[] mBtnToggle=new LedView[6];
-    private String[] onoff={"A","B","C","D","E","F"};
-    private int[] btnstates=new int[6];
+    private String[] onoff={"A","D","B","E","C","F"};
 
 	private boolean mIsBluetoothConnected = false;
 
@@ -62,7 +62,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		ActivityHelper.initialize(this);
+        //ActivityHelper.initialize(this); //This is to ensure that the rotation persists across activities and not just this one
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 		Intent intent = getIntent();
 		Bundle b = intent.getExtras();
@@ -250,6 +251,7 @@ public class MainActivity extends Activity {
 	protected void onSaveInstanceState(Bundle outState) {
 		// TODO Auto-generated method stub
 		super.onSaveInstanceState(outState);
+
 	}
 
 	private class ConnectBT extends AsyncTask<Void, Void, Void> {

@@ -66,7 +66,8 @@ public class Homescreen extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_homescreen);
-		ActivityHelper.initialize(this); //This is to ensure that the rotation persists across activities and not just this one
+		//ActivityHelper.initialize(this); //This is to ensure that the rotation persists across activities and not just this one
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		Log.d(TAG, "Created");
 
 		mBtnSearch = (Button) findViewById(R.id.btnSearch);
@@ -175,7 +176,7 @@ public class Homescreen extends Activity {
 			String bufSize = prefs.getString("prefTextBuffer", "Null");
 			mBufferSize = Integer.parseInt(bufSize);
 
-			String orientation = prefs.getString("prefOrientation", "Null");
+			/*String orientation = prefs.getString("prefOrientation", "Null");
 			Log.d(TAG, "Orientation: " + orientation);
 			if (orientation.equals("Landscape")) {
 				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -183,11 +184,12 @@ public class Homescreen extends Activity {
 				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 			} else if (orientation.equals("Auto")) {
 				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
-			}
+			}*/
 			break;
 		default:
 			break;
 		}
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
